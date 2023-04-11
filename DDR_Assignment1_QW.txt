@@ -1,0 +1,41 @@
+1. all IP addresses?
+Find: [0-9]+[.][0-9]+[.][0-9]+[.][0-9]+
+
+2. all E-Mail addresses?
+Find: [-a-z0-9.]+@[a-z0-9.\-]+
+
+3. all salaries?
+Find: (?<![0-9])[0-9]{5,6}(?![0-9])
+
+-- to prevent capturing SSN and only captures salaries.
+
+4. transform the column "Last Seen" from US to year-month-day date format while leaving the rest as is.
+Find: (0[1-9]|1[0-2])/([0-9]{2})/([0-9]{4})
+Replace: $3-$1-$2 (made 1000 replacements)
+
+5. transform the column "SSN" from 9 digits to last four digits while leaving the rest as is. 
+Find: (?<=[0-5]",")([0-9]{2,5})([0-9]{4})(?=","[^S\M])
+Replace: $2 (made 1000 replacements)
+
+-- SSN numbers range from 6-9 digits, and are differentiated from the Salary column by adding a condition that the captured numbers are not followed by characters "Single" or "Married". 
+
+6. strip everything BUT the email column.
+Find: .*?([-a-z0-9.]+@[a-z0-9.\-]+).*
+Replace: $1 (made 1000 replacements)
+
+-- ? makes .* RegEx ungreedy, thus not stealing characters from the following email addresses.
+-- OR, for this question:.*,"([-a-z0-9.]+@[a-z0-9.\-]+).* has the same effect.
+-- Column names are kept in the output file.
+
+7. convert all rows to "Last Name" [TAB] "First Name" [TAB] "Last Seen" only (strip the rest). 
+Find: "([A-Z]{1}[a-z]+)","([A-Z]{1}[a-z]+).+(0[1-9]|1[0-2])/([0-9]{2})/([0-9]{4}).+
+Replace: $2\t$1\t$5-$3-$4 (made 1000 replacements)
+
+-- \t for [TAB]
+-- Output copied and pasted to an excel sheet.
+
+8. strip everything BUT "Number of Children" and "Number of Logins" 
+Find: .+(0[1-9]|1[0-2])/([0-9]{2})/([0-9]{4}),"([0-5]{1})",".+"([0-9]{2})"
+Replace: $5\t$4 (made 1000 replacements)
+
+-- Output copied and pasted to an excel sheet.
