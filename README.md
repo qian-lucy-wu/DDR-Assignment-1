@@ -1,5 +1,7 @@
 # Assignment 1: RegEx Search and Replacement
 
+Due: Jan 15 by 11:59pm
+
 Use attached mock_data file.
 
 Each of the following tasks are independent / will be performed on newly opened "mock_data". Accidental changes to the header can be ignored.
